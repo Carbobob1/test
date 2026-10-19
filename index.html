@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Legitymacja — makieta edukacyjna</title>
+  <style>
+    :root {
+      --ink: #15191f;
+      --muted: #5d6570;
+      --blue: #0759a8;
+      --green: #2f7d32;
+      --page: #f2f5fa;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--page);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    .phone-screen {
+      width: min(100%, 620px);
+      margin: 0 auto;
+      min-height: 100vh;
+      padding: 14px 20px 28px;
+    }
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 16px 22px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .status-icons { letter-spacing: 3px; font-size: 13px; }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin: 4px 0 26px;
+    }
+    .back {
+      color: var(--blue);
+      font-size: 16px;
+      white-space: nowrap;
+    }
+    h1 { margin: 0; font-size: 21px; font-weight: 700; }
+    .timestamp {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 22px;
+    }
+    .notice {
+      background: #fff4d8;
+      border: 1px solid #e9c96c;
+      color: #674c00;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .id-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      box-shadow: 0 12px 30px #25334a14;
+      background: linear-gradient(150deg, #42c4df 0%, #22cbd0 50%, #04b99b 100%);
+    }
+    .card-main {
+      min-height: 540px;
+      position: relative;
+      padding: 24px 22px 28px;
+      isolation: isolate;
+    }
+    .card-main::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 330px;
+      height: 330px;
+      right: -135px;
+      top: 65px;
+      border: 2px solid #ffffff35;
+      border-radius: 48% 52% 44% 56%;
+      transform: rotate(32deg);
+      box-shadow: 0 0 0 15px #ffffff0b, 0 0 0 31px #ffffff0b, 0 0 0 47px #ffffff0b;
+    }
+    .card-main::after {
+      content: "DEMO • NIEWAŻNE";
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      top: 51%;
+      transform: translate(-50%, -50%) rotate(-28deg);
+      width: 140%;
+      text-align: center;
+      font-size: clamp(24px, 6vw, 36px);
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #ffffff55;
+      border-top: 3px solid #ffffff55;
+      border-bottom: 3px solid #ffffff55;
+      padding: 8px 0;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: 38% 1fr;
+      gap: 22px;
+      position: relative;
+      z-index: 1;
+    }
+    .portrait {
+      width: 100%;
+      aspect-ratio: 0.78;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #dce1e4, #9ba7ae);
+      display: grid;
+      place-items: center;
+      color: #46525b;
+      text-align: center;
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+      border: 1px solid #ffffff80;
+    }
+    .portrait svg { width: 72%; max-height: 125px; opacity: .7; }
+    .field { margin-bottom: 22px; overflow-wrap: anywhere; }
+    .value {
+      display: block;
+      font-size: clamp(16px, 4vw, 22px);
+      font-weight: 700;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+    .label { display: block; margin-top: 3px; color: #425765; font-size: 15px; }
+    .school { line-height: 1.35; }
+    .card-footer {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 22px 26px;
+      color: var(--green);
+      font-weight: 650;
+      font-size: 18px;
+    }
+    .check {
+      flex: 0 0 44px;
+      height: 44px;
+      border: 3px solid var(--green);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 25px;
+    }
+    .action-row, .album {
+      background: #fff;
+      border-radius: 22px;
+      margin-top: 26px;
+      padding: 24px;
+      box-shadow: 0 10px 24px #25334a0d;
+    }
+    .action-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 18px;
+      font-weight: 650;
+    }
+    .scan { color: var(--blue); font-size: 27px; }
+    .chevron { margin-left: auto; color: var(--muted); font-size: 28px; }
+    .album-label { display: block; color: var(--muted); font-size: 15px; margin-bottom: 7px; }
+    .album-value { font-size: 22px; font-weight: 700; }
+    .learning-panel {
+      display: none;
+      margin-top: 14px;
+      padding: 18px;
+      background: #e8f2ff;
+      border-radius: 16px;
+      color: #183d64;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+    .learning-panel.visible { display: block; }
+    button {
+      font: inherit;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+    }
+    button:focus-visible { outline: 3px solid #1c69b4; outline-offset: 4px; border-radius: 8px; }
+    .footer-note { text-align: center; color: var(--muted); font-size: 12px; margin: 22px 0 4px; }
+    @media (max-width: 390px) {
+      .phone-screen { padding: 10px 14px 24px; }
+      .card-main { padding: 18px 16px 22px; min-height: 500px; }
+      .card-grid { gap: 14px; grid-template-columns: 37% 1fr; }
+      .field { margin-bottom: 18px; }
+      .label { font-size: 13px; }
+      .card-footer { padding: 18px; font-size: 16px; }
+      .action-row, .album { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="phone-screen">
+    <div class="status-bar" aria-hidden="true">
+      <span id="status-time">--:--</span><span class="status-icons">▮▮▮ ◉ ▰</span>
+    </div>
+    <header class="nav">
+      <span class="back">‹ Wróć</span>
+      <h1>Legitymacja — DEMO</h1>
+    </header>
+    <p class="timestamp">Podgląd demonstracyjny · <span id="date-time">--.--.----</span> · <span id="clock-time">--:--:--</span></p>
+
+    <aside class="notice">
+      <strong>Makieta edukacyjna.</strong> To nie jest oficjalna aplikacja ani strona, a karta poniżej nie jest dokumentem tożsamości ani legitymacją studencką. Wszystkie dane są fikcyjne.
+    </aside>
+
+    <section class="id-card" aria-label="Fikcyjna karta demonstracyjna">
+      <div class="card-main">
+        <div class="card-grid">
+          <div class="portrait" aria-label="Ilustracja zastępująca zdjęcie">
+            <svg viewBox="0 0 100 130" role="img" aria-label="Ikona sylwetki">
+              <circle cx="50" cy="34" r="24" fill="#5e6b72"/>
+              <path d="M12 124c2-32 17-51 38-51s36 19 38 51" fill="#5e6b72"/>
+            </svg>
+            <span>PORTRET DEMO</span>
+          </div>
+          <div>
+            <div class="field"><span class="value">Aleksandra</span><span class="label">Imię (fikcyjne)</span></div>
+            <div class="field"><span class="value">Przykładowska</span><span class="label">Nazwisko (fikcyjne)</span></div>
+            <div class="field"><span class="value">01.01.2005</span><span class="label">Przykładowa data</span></div>
+            <div class="field"><span class="value">00000000000</span><span class="label">Numer testowy — nie PESEL</span></div>
+            <div class="field"><span class="value">01.10.2026</span><span class="label">Data makiety</span></div>
+            <div class="field school"><span class="value">Uniwersytet Przykładowy</span><span class="label">Uczelnia fikcyjna</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="check" aria-hidden="true">✓</span>
+        <span>Makieta edukacyjna — nieważna</span>
+      </div>
+    </section>
+
+    <section class="action-row">
+      <button id="learn-button" type="button" aria-expanded="false" aria-controls="learning-panel">
+        <span class="scan" aria-hidden="true">⌗</span>
+        <span style="margin-left:14px">Poznaj HTML i CSS</span>
+        <span class="chevron" aria-hidden="true">›</span>
+      </button>
+    </section>
+    <div class="learning-panel" id="learning-panel">
+      <strong>Co tworzy ten widok?</strong>
+      <ul>
+        <li><strong>HTML</strong> — strukturę: nagłówek, kartę i pola danych.</li>
+        <li><strong>CSS</strong> — kolory, gradient, zaokrąglenia, cień i układ.</li>
+        <li><strong>JavaScript</strong> — obsługuje kliknięcie tego panelu.</li>
+      </ul>
+      Spróbuj zmienić wartość <code>--page</code> w sekcji <code>:root</code> w CSS, aby zmienić tło strony.
+    </div>
+
+    <section class="album">
+      <span class="album-label">Numer albumu (testowy)</span>
+      <span class="album-value">123456</span>
+    </section>
+    <p class="footer-note">Projekt do nauki front-endu · niepowiązany z żadną instytucją</p>
+  </main>
+
+  <script>
+    const button = document.querySelector("#learn-button");
+    const panel = document.querySelector("#learning-panel");
+
+    // Pobiera bieżącą datę i godzinę z zegara urządzenia.
+    function updateDateTime() {
+      const now = new Date();
+      document.querySelector("#status-time").textContent =
+        now.toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" });
+      document.querySelector("#date-time").textContent =
+        now.toLocaleDateString("pl-PL", { day: "2-digit", month: "2-digit", year: "numeric" });
+      document.querySelector("#clock-time").textContent =
+        now.toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    button.addEventListener("click", () => {
+      const isOpen = panel.classList.toggle("visible");
+      button.setAttribute("aria-expanded", String(isOpen));
+    });
+  </script>
+</body>
+</html>
